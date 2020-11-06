@@ -22,6 +22,8 @@ to the folder with your project and prepare your .env file. REDIS_HOST or anothe
 ![mysql_env](../images/laravel_lemp_db_env.png)
 ![mysql_env](../images/laravel_redis_env.png)
 
+![mysql_env](../images/laravel_lepp_db_env.png)
+
 After run the following commands in the terminal.
 
 ```shell

@@ -87,6 +87,10 @@ After you may use needed commands, example:
 ```shell
 docker-compose run node npm run dev
 ```
+or
+```shell script
+docker-compose run node npm run watch-poll
+```
 
 ### Run tests
 

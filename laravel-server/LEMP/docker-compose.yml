@@ -11,7 +11,7 @@ services:
   php-cli:
     build:
       context: ./docker/php-cli
-  volumes:
+    volumes:
       - "./:/var/www"
 
   nginx:
@@ -38,35 +38,37 @@ services:
       - MYSQL_PASSWORD=123
       - MYSQL_ROOT_PASSWORD=123
     command: mysqld --innodb-flush-method=littlesync --innodb-use-native-aio=OFF --log_bin=ON
+    volumes:
+      - ./docker/db:/var/lib/mysql
     ports:
       - "3306:3306"
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     environment:
-     - PMA_ARBITRARY=1
+      - PMA_ARBITRARY=1
     restart: always
     ports:
-     - 8090:80
+      - 8090:80
     volumes:
-     - /sessions
+      - /sessions
 
   redis:
     image: redis:alpine
     command: ["redis-server", "--appendonly", "yes"]
     ports:
-     - "6379:6379"
+      - "6379:6379"
 
   composer:
     image: composer:latest
+    environment:
+      - COMPOSER_MEMORY_LIMIT=-1
     volumes:
       - ./:/var/www
     working_dir: /var/www
-    command: composer install
 
   node:
     image: node:latest
     volumes:
       - ./:/var/www
     working_dir: /var/www
-    command: npm install

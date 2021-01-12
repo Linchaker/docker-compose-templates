@@ -1,4 +1,4 @@
-# php-fpm 
+# php-fpm
 FROM php:7.4-fpm
 
 RUN mkdir /var/log/php
@@ -15,17 +15,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     sqlite3 \
     libpq-dev \
     libzip-dev \
-    && pecl install xdebug
+    libmagickwand-dev --no-install-recommends \
+    && pecl install xdebug imagick
 
 
 # clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # installing extensions
-RUN docker-php-ext-install pdo_mysql zip pgsql pdo_pgsql 
+RUN docker-php-ext-install pdo_mysql zip pgsql pdo_pgsql
 
 # enabled extensions
-RUN docker-php-ext-enable xdebug
+RUN docker-php-ext-enable xdebug imagick
 
 CMD ["php-fpm"]
 EXPOSE 9000
